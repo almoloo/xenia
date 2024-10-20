@@ -62,4 +62,25 @@ contract Xenia {
         GiftCard memory card = giftCards[_code];
         return (card.amount, card.sender, card.ipfs, card.redeemed);
     }
+
+    // ----- REDEEM GIFT CARD
+    function redeemGiftCard(string memory _code) external {
+        // CHECK IF GIFT CARD EXISTS
+        require(
+            giftCards[_code].amount > 0,
+            "A gift card with this code does not exist!"
+        );
+
+        // CHECK IF GIFT CARD HAS BEEN REDEEMED
+        GiftCard storage card = giftCards[_code];
+        require(!card.redeemed, "Gift card has already been redeemed!");
+
+        card.redeemed = true;
+        uint256 amountToTransfer = card.amount;
+        (bool success, ) = msg.sender.call{value: amountToTransfer}("");
+        require(success, "Transfer failed");
+
+        // EMIT EVENT
+        emit GiftCardRedeemed(msg.sender, amountToTransfer, _code);
+    }
 }
