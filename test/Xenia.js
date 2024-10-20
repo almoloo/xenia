@@ -14,24 +14,31 @@ describe("Xenia", function () {
     await xenia.waitForDeployment();
   });
 
-  it("should create a gift card", async function () {
+  it("should create and validate a gift card", async function () {
     const amount = ethers.parseEther("1");
     const code = "GIFT123ABC";
-    const message = "Happy Birthday!";
     const ipfs = "abcdefg";
 
     // Create the gift card
-    await xenia
-      .connect(sender)
-      .createGiftCard(code, message, ipfs, { value: amount });
+    await xenia.connect(sender).createGiftCard(code, ipfs, { value: amount });
+
+    // Validate the gift card
+    const card = await xenia.validateGiftCard(code);
 
     // Hash the code to verify the stored gift card
     const giftCard = await xenia.giftCards(code);
 
     expect(giftCard.amount).to.equal(amount);
     expect(giftCard.sender).to.equal(sender.address);
-    expect(giftCard.message).to.equal(message);
     expect(giftCard.ipfs).to.equal(ipfs);
     expect(giftCard.redeemed).to.equal(false);
+  });
+
+  it("should revert if the gift card doesn't exist", async function () {
+    const invalidCode = "INVALID_CODE";
+
+    await expect(xenia.validateGiftCard(invalidCode)).to.be.revertedWith(
+      "A gift card with this code does not exist!"
+    );
   });
 });
