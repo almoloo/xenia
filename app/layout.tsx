@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/layout/Header";
+import WalletConnectProvider from "@/components/walletconnect-provider";
+import { headers } from "next/headers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,6 +27,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookies = headers().get("cookie");
+
   return (
     <html lang="en">
       <body
@@ -35,8 +39,10 @@ export default function RootLayout({
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          <Header />
-          {children}
+          <WalletConnectProvider cookies={cookies}>
+            <Header />
+            {children}
+          </WalletConnectProvider>
         </ThemeProvider>
       </body>
     </html>
