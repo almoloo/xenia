@@ -4,13 +4,12 @@ import { GiftIcon } from "lucide-react";
 
 export default function Header() {
   return (
-    <div className="flex items-center px-5 py-3">
-      <h1 className="font-bolder flex items-center gap-2 text-2xl">
-        <GiftIcon className="h-6 w-6" />
-        Xenia
-      </h1>
-      <ToggleTheme />
-      <w3m-button />
+    <div className="flex items-center justify-between px-5 py-3">
+      <h1 className="flex items-center gap-2 text-2xl font-black">Xenia</h1>
+      <div className="flex items-center gap-2">
+        <ToggleTheme />
+        <w3m-button />
+      </div>
     </div>
   );
 }
