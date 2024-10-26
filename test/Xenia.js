@@ -80,4 +80,35 @@ describe("Xenia", function () {
       "A gift card with this code does not exist!"
     );
   });
+
+  it("should retrieve all gift cards created by a specific sender", async function () {
+    const amount1 = ethers.parseEther("1");
+    const amount2 = ethers.parseEther("2");
+    const code1 = "GIFT123ABC";
+    const code2 = "GIFT456DEF";
+    const ipfs1 = "abcdefg";
+    const ipfs2 = "hijklmn";
+
+    // Sender creates two gift cards
+    await xenia
+      .connect(sender)
+      .createGiftCard(code1, ipfs1, { value: amount1 });
+    await xenia
+      .connect(sender)
+      .createGiftCard(code2, ipfs2, { value: amount2 });
+
+    // Retrieve all gift cards by the sender
+    const senderCards = await xenia.getGiftCardsBySender(sender.address);
+
+    expect(senderCards.length).to.equal(2);
+    expect(senderCards[0].amount).to.equal(amount1);
+    expect(senderCards[0].sender).to.equal(sender.address);
+    expect(senderCards[0].ipfs).to.equal(ipfs1);
+    expect(senderCards[0].redeemed).to.equal(false);
+
+    expect(senderCards[1].amount).to.equal(amount2);
+    expect(senderCards[1].sender).to.equal(sender.address);
+    expect(senderCards[1].ipfs).to.equal(ipfs2);
+    expect(senderCards[1].redeemed).to.equal(false);
+  });
 });

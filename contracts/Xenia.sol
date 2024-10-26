@@ -13,12 +13,11 @@ contract Xenia {
     }
 
     mapping(string => GiftCard) public giftCards;
+    string[] public giftCardCodes;
     address public owner;
-    uint256 public nextGiftCardId;
 
     constructor() {
         owner = msg.sender;
-        nextGiftCardId = 1;
     }
 
     // ----- CREATE A GIFT CARD
@@ -40,6 +39,7 @@ contract Xenia {
             ipfs: _ipfs,
             redeemed: false
         });
+        giftCardCodes.push(_code);
 
         // EMIT EVENT
         emit GiftCardCreated(msg.sender, msg.value, _code, _ipfs);
@@ -82,5 +82,27 @@ contract Xenia {
 
         // EMIT EVENT
         emit GiftCardRedeemed(msg.sender, amountToTransfer, _code);
+    }
+
+    // ----- GET ALL GIFT CARDS BY SENDER
+    function getGiftCardsBySender(address _sender) external view returns (GiftCard[] memory) {
+        uint256 count = 0;
+
+        for (uint256 i = 0; i < giftCardCodes.length; i++) {
+            if (giftCards[giftCardCodes[i]].sender == _sender) {
+                count++;
+            }
+        }
+
+        GiftCard[] memory result = new GiftCard[](count);
+        uint256 index = 0;
+        for (uint256 i = 0; i < giftCardCodes.length; i++) {
+            if (giftCards[giftCardCodes[i]].sender == _sender) {
+                result[index] = giftCards[giftCardCodes[i]];
+                index++;
+            }
+        }
+
+        return result;
     }
 }
