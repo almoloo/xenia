@@ -1,6 +1,5 @@
 import React from "react";
 import ToggleTheme from "@/components/layout/ToggleTheme";
-import { GiftIcon } from "lucide-react";
 
 export default function Header() {
   return (

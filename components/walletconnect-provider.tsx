@@ -1,16 +1,8 @@
 "use client";
 
-import { wagmiAdapter, projectId } from "@/lib/config";
+import { wagmiAdapter, projectId, aiaTestnet } from "@/lib/config";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createAppKit } from "@reown/appkit/react";
-import {
-  mainnet,
-  arbitrum,
-  avalanche,
-  base,
-  optimism,
-  polygon,
-} from "@reown/appkit/networks";
 import React, { type ReactNode } from "react";
 import { cookieToInitialState, WagmiProvider, type Config } from "wagmi";
 import { useTheme } from "next-themes";
@@ -31,8 +23,8 @@ const metadata = {
 const modal = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [mainnet, arbitrum, avalanche, base, optimism, polygon],
-  defaultNetwork: mainnet,
+  networks: [aiaTestnet],
+  defaultNetwork: aiaTestnet,
   metadata: metadata,
   features: {
     analytics: true, // Optional - defaults to your Cloud configuration

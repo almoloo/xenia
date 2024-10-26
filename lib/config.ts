@@ -9,10 +9,10 @@ if (!projectId) {
   throw new Error("Project ID is not defined");
 }
 
-const aiaTestnet = defineChain({
+export const aiaTestnet = defineChain({
   id: 1320,
   name: "AIA Testnet",
-  caipNetworkId: "eip155:0x528",
+  caipNetworkId: "eip155:1320",
   chainNamespace: "eip155",
   assets: {
     imageUrl: "https://www.aiascan.com/static/icon.png",
