@@ -31,9 +31,6 @@ export default function Layout({
       <LoaderIcon className="h-10 w-10 animate-spin" />
     </div>
   ) : (
-    <>
-      {status}
-      {children}
-    </>
+    children
   );
 }
