@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import WalletConnectProvider from "@/components/walletconnect-provider";
 import { headers } from "next/headers";
 import Footer from "@/components/layout/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,10 +43,11 @@ export default function RootLayout({
         >
           <WalletConnectProvider cookies={cookies}>
             <Header />
-            <main className="flex grow flex-col">{children}</main>
+            <main className="flex grow flex-col px-10 py-5">{children}</main>
             <Footer />
           </WalletConnectProvider>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

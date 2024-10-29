@@ -1,7 +1,6 @@
 import React from "react";
 import { QRCodeSVG } from "qrcode.react";
 import Logo from "@/components/layout/Logo";
-import Link from "next/link";
 import { toast } from "sonner";
 
 interface GiftCardProps {
