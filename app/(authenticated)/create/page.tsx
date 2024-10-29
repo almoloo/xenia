@@ -24,6 +24,7 @@ import { LoaderIcon, OctagonAlertIcon, PrinterIcon } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useReactToPrint } from "react-to-print";
 import { toast } from "sonner";
+import { sha256, toBytes } from "viem";
 
 const formSchema = z.object({
   title: z.string(),
@@ -76,14 +77,22 @@ export default function Page() {
     }
   }, [id]);
 
+  // UPDATE GIFT CARD INFO ON FORM CHANGE
+  const formTitle = form.watch("title");
+  const formDescription = form.watch("description");
+  const formAmount = form.watch("amount");
+
   useEffect(() => {
-    setGiftCardInfo((info) => ({
-      ...info,
-      title: form.getValues().title,
-      description: form.getValues().description,
-      amount: form.getValues().amount,
-    }));
-  }, [form.getValues()]);
+    console.log(form.formState.isDirty);
+    if (form.formState.isDirty) {
+      setGiftCardInfo((info) => ({
+        ...info,
+        title: formTitle,
+        description: formDescription,
+        amount: formAmount,
+      }));
+    }
+  }, [form.formState.isDirty, formTitle, formDescription, formAmount]);
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -100,14 +109,15 @@ export default function Page() {
           },
         }),
       });
-      const { hash } = await response.json();
+      const { hash: ipfs } = await response.json();
       // CREATE GIFT CARD
       setStatus("contract");
+      const hashedId = sha256(toBytes(id!));
       const card = await writeContractAsync({
         address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS! as `0x${string}`,
         abi,
         functionName: "createGiftCard",
-        args: [id, hash],
+        args: [hashedId, ipfs],
         value: BigInt(values.amount * 10 ** 18),
       });
       setStatus("success");
@@ -123,12 +133,12 @@ export default function Page() {
       <div className="flex w-[600px] max-w-full flex-col gap-5">
         <div className="text-center">
           <h2 className="mb-2 text-xl font-bold">Gift Card Created</h2>
-          <p className="text-sm text-neutral-600">
+          <p className="text-sm text-neutral-600 dark:text-neutral-500">
             Your gift card has been created successfully. Share the gift code
             with your recipient, and they can redeem it securely.
           </p>
         </div>
-        <Alert variant="destructive">
+        <Alert variant="destructive" className="bg-white/10">
           <OctagonAlertIcon className="h-4 w-4" />
           <AlertTitle>Warning!</AlertTitle>
           <AlertDescription>

@@ -9,7 +9,7 @@ import Logo from "@/components/layout/Logo";
 export default function Header() {
   const { isConnected } = useAccount();
   return (
-    <header className="flex items-center justify-between border-b px-10 py-3">
+    <header className="flex items-center justify-between border-b px-10 py-3 dark:border-slate-600">
       <Link href="/">
         <Logo className="h-6 w-auto" />
       </Link>

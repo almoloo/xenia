@@ -21,9 +21,9 @@
       },
       {
         "indexed": true,
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "hashCode",
-        "type": "string"
+        "type": "bytes32"
       },
       {
         "indexed": false,
@@ -52,9 +52,9 @@
       },
       {
         "indexed": true,
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "hashCode",
-        "type": "string"
+        "type": "bytes32"
       }
     ],
     "name": "GiftCardRedeemed",
@@ -63,9 +63,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "_code",
-        "type": "string"
+        "type": "bytes32"
       },
       {
         "internalType": "string",
@@ -130,9 +130,9 @@
     "name": "giftCardCodes",
     "outputs": [
       {
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "",
-        "type": "string"
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -141,9 +141,9 @@
   {
     "inputs": [
       {
-        "internalType": "string",
+        "internalType": "bytes32",
         "name": "",
-        "type": "string"
+        "type": "bytes32"
       }
     ],
     "name": "giftCards",
