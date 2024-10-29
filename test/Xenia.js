@@ -18,15 +18,18 @@ describe("Xenia", function () {
     const amount = ethers.parseEther("1");
     const code = "GIFT123ABC";
     const ipfs = "abcdefg";
+    const hashedCode = ethers.sha256(ethers.toUtf8Bytes(code));
 
     // Create the gift card
-    await xenia.connect(sender).createGiftCard(code, ipfs, { value: amount });
+    await xenia
+      .connect(sender)
+      .createGiftCard(hashedCode, ipfs, { value: amount });
 
     // Validate the gift card
     const card = await xenia.validateGiftCard(code);
 
     // Hash the code to verify the stored gift card
-    const giftCard = await xenia.giftCards(code);
+    const giftCard = await xenia.giftCards(hashedCode);
 
     expect(giftCard.amount).to.equal(amount);
     expect(giftCard.sender).to.equal(sender.address);
@@ -38,9 +41,12 @@ describe("Xenia", function () {
     const amount = ethers.parseEther("1");
     const code = "GIFT123ABC";
     const ipfs = "abcdefg";
+    const hashedCode = ethers.sha256(ethers.toUtf8Bytes(code));
 
     // Sender creates the gift card
-    await xenia.connect(sender).createGiftCard(code, ipfs, { value: amount });
+    await xenia
+      .connect(sender)
+      .createGiftCard(hashedCode, ipfs, { value: amount });
 
     // Redeem the gift card as the recipient
     const balanceBefore = await ethers.provider.getBalance(recipient.address);
@@ -52,7 +58,7 @@ describe("Xenia", function () {
     expect(gasUsed < ethers.parseEther("0.01")).to.be.true;
 
     // Verify the gift card is marked as redeemed
-    const giftCard = await xenia.giftCards(code);
+    const giftCard = await xenia.giftCards(hashedCode);
     expect(giftCard.redeemed).to.equal(true);
   });
 
@@ -60,9 +66,12 @@ describe("Xenia", function () {
     const amount = ethers.parseEther("1");
     const code = "GIFT123ABC";
     const ipfs = "abcdefg";
+    const hashedCode = ethers.sha256(ethers.toUtf8Bytes(code));
 
     // Sender creates the gift card
-    await xenia.connect(sender).createGiftCard(code, ipfs, { value: amount });
+    await xenia
+      .connect(sender)
+      .createGiftCard(hashedCode, ipfs, { value: amount });
 
     // Redeem the gift card as the recipient
     await xenia.connect(recipient).redeemGiftCard(code);
@@ -75,8 +84,9 @@ describe("Xenia", function () {
 
   it("should revert if the gift card doesn't exist", async function () {
     const invalidCode = "INVALID_CODE";
+    const hashedCode = ethers.sha256(ethers.toUtf8Bytes(invalidCode));
 
-    await expect(xenia.validateGiftCard(invalidCode)).to.be.revertedWith(
+    await expect(xenia.validateGiftCard(hashedCode)).to.be.revertedWith(
       "A gift card with this code does not exist!"
     );
   });
@@ -89,13 +99,16 @@ describe("Xenia", function () {
     const ipfs1 = "abcdefg";
     const ipfs2 = "hijklmn";
 
+    const hashedCode1 = ethers.sha256(ethers.toUtf8Bytes(code1));
+    const hashedCode2 = ethers.sha256(ethers.toUtf8Bytes(code2));
+
     // Sender creates two gift cards
     await xenia
       .connect(sender)
-      .createGiftCard(code1, ipfs1, { value: amount1 });
+      .createGiftCard(hashedCode1, ipfs1, { value: amount1 });
     await xenia
       .connect(sender)
-      .createGiftCard(code2, ipfs2, { value: amount2 });
+      .createGiftCard(hashedCode2, ipfs2, { value: amount2 });
 
     // Retrieve all gift cards by the sender
     const senderCards = await xenia.getGiftCardsBySender(sender.address);

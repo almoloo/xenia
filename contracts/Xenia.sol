@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.27;
 
-event GiftCardCreated(address indexed sender, uint256 amount, string indexed hashCode, string url);
-event GiftCardRedeemed(address indexed recipient, uint256 amount, string indexed hashCode);
+event GiftCardCreated(address indexed sender, uint256 amount, bytes32 indexed hashCode, string url);
+event GiftCardRedeemed(address indexed recipient, uint256 amount, bytes32 indexed hashCode);
 
 contract Xenia {
     struct GiftCard {
@@ -12,8 +12,8 @@ contract Xenia {
         bool redeemed;
     }
 
-    mapping(string => GiftCard) public giftCards;
-    string[] public giftCardCodes;
+    mapping(bytes32 => GiftCard) public giftCards;
+    bytes32[] public giftCardCodes;
     address public owner;
 
     constructor() {
@@ -22,7 +22,7 @@ contract Xenia {
 
     // ----- CREATE A GIFT CARD
     function createGiftCard(
-        string memory _code,
+        bytes32 _code,
         string memory _ipfs
     ) external payable {
         require(msg.value > 0, "Gift card amount must be greater than zero");
@@ -52,27 +52,29 @@ contract Xenia {
         string memory ipfs,
         bool redeemed
     ) {
+        bytes32 hashedInputCode = sha256(abi.encodePacked(_code));
         // CHECK IF GIFT CARD EXISTS
         require(
-            giftCards[_code].amount > 0,
+            giftCards[hashedInputCode].amount > 0,
             "A gift card with this code does not exist!"
         );
 
         // RETURN GIFT CARD DETAILS
-        GiftCard memory card = giftCards[_code];
+        GiftCard memory card = giftCards[hashedInputCode];
         return (card.amount, card.sender, card.ipfs, card.redeemed);
     }
 
     // ----- REDEEM GIFT CARD
     function redeemGiftCard(string memory _code) external {
+        bytes32 hashedInputCode = sha256(abi.encodePacked(_code));
         // CHECK IF GIFT CARD EXISTS
         require(
-            giftCards[_code].amount > 0,
+            giftCards[hashedInputCode].amount > 0,
             "A gift card with this code does not exist!"
         );
 
         // CHECK IF GIFT CARD HAS BEEN REDEEMED
-        GiftCard storage card = giftCards[_code];
+        GiftCard storage card = giftCards[hashedInputCode];
         require(!card.redeemed, "Gift card has already been redeemed!");
 
         card.redeemed = true;
@@ -81,7 +83,7 @@ contract Xenia {
         require(success, "Transfer failed");
 
         // EMIT EVENT
-        emit GiftCardRedeemed(msg.sender, amountToTransfer, _code);
+        emit GiftCardRedeemed(msg.sender, amountToTransfer, hashedInputCode);
     }
 
     // ----- GET ALL GIFT CARDS BY SENDER
