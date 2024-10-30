@@ -83,7 +83,6 @@ export default function Page() {
   const formAmount = form.watch("amount");
 
   useEffect(() => {
-    console.log(form.formState.isDirty);
     if (form.formState.isDirty) {
       setGiftCardInfo((info) => ({
         ...info,
