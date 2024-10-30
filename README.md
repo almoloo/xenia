@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌟 Xenia
 
-## Getting Started
+![cover-image](https://via.placeholder.com/1200x400?text=Cover+Image)
 
-First, run the development server:
+Xenia is an EVM-based platform on AIA network enabling users to create, validate, and redeem gift cards securely and transparently. Using cryptographic hashing, the contract ensures that gift cards are unique, tamper-proof, and securely redeemable by recipients.
+
+---
+
+## 🌐 Features
+
+- **Secure Gift Card Creation**: Issue gift cards with unique, hashed codes to protect against unauthorized use.
+- **Redeemable by Recipients**: Only valid, unredeemed gift cards can be redeemed.
+- **Full Validation**: Validate gift cards and verify if they exist or have already been redeemed.
+- **Retrieve Created Cards**: Easily fetch all gift cards issued by a specific address.
+- **Transparent Blockchain Transactions**: All interactions are transparent, recorded on-chain, and easily verifiable.
+
+---
+
+## 📸 Screenshots
+
+### Creating a Gift Card
+
+![create-card-screenshot](https://via.placeholder.com/800x400?text=Create+Card+Screenshot) <!-- Placeholder screenshot URL -->
+
+### Validating a Gift Card
+
+![validate-card-screenshot](https://via.placeholder.com/800x400?text=Validate+Card+Screenshot) <!-- Placeholder screenshot URL -->
+
+### Redeeming a Gift Card
+
+![redeem-card-screenshot](https://via.placeholder.com/800x400?text=Redeem+Card+Screenshot) <!-- Placeholder screenshot URL -->
+
+---
+
+## ⚙️ Installation & Setup
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [Hardhat](https://hardhat.org/)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/almoloo/xenia.git
+cd xenia
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Run the Service
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Compile the Contract
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npx hardhat compile
+```
 
-## Learn More
+### Run Tests
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx hardhat test
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📜 Smart Contract
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The Xenia.sol contract contains the following key functions:
 
-## Deploy on Vercel
+### createGiftCard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> Hash-based creation of new gift cards with unique codes.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### validateGiftCard
+
+> Verifies if a gift card exists and returns its details.
+
+### redeemGiftCard
+
+> Securely redeems a gift card, transferring funds to the recipient.
+
+### getGiftCardsBySender
+
+> Fetches all gift cards created by a specific address.
+
+## 🛠️ Contributing
+
+Feel free to fork this project, submit issues, and create pull requests. All contributions are welcome and appreciated!
+
+## ⚖️ License
+
+Distributed under the MIT License. See [LICENSE](/LICENSE) for more information.
+
+---
+
+Ali Mousavi - [@almoloo](https://twitter.com/almoloo) - [amousavig@icloud.com](mailto:amousavig@icloud.com)
