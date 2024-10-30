@@ -1,6 +1,6 @@
 # 🌟 Xenia
 
-![cover-image](https://via.placeholder.com/1200x400?text=Cover+Image)
+![cover-image](/images/hero.png)
 
 Xenia is an EVM-based platform on AIA network enabling users to create, validate, and redeem gift cards securely and transparently. Using cryptographic hashing, the contract ensures that gift cards are unique, tamper-proof, and securely redeemable by recipients.
 
@@ -20,15 +20,16 @@ Xenia is an EVM-based platform on AIA network enabling users to create, validate
 
 ### Creating a Gift Card
 
-![create-card-screenshot](https://via.placeholder.com/800x400?text=Create+Card+Screenshot) <!-- Placeholder screenshot URL -->
+![create-card-screenshot](/images/screenshot-1.png)
+![create-card-screenshot](/images/screenshot-2.png)
 
 ### Validating a Gift Card
 
-![validate-card-screenshot](https://via.placeholder.com/800x400?text=Validate+Card+Screenshot) <!-- Placeholder screenshot URL -->
+![validate-card-screenshot](/images/screenshot-3.png)
 
 ### Redeeming a Gift Card
 
-![redeem-card-screenshot](https://via.placeholder.com/800x400?text=Redeem+Card+Screenshot) <!-- Placeholder screenshot URL -->
+![redeem-card-screenshot](/images/screenshot-4.png)
 
 ---
 
