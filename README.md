@@ -95,6 +95,21 @@ The Xenia.sol contract contains the following key functions:
 
 > Fetches all gift cards created by a specific address.
 
+## 🚀 Roadmap
+
+Our journey to revolutionize blockchain-based gifting is just beginning! Here’s a look at what’s ahead:
+
+- [ ] **Bulk Gift Card Creation**  
+       Effortlessly create multiple gift cards at once, perfect for promotional campaigns or corporate gifting.
+
+- [ ] **One-Click Sharing**  
+       A seamless option to share gift cards with a single click, simplifying the gifting process across messaging platforms and email.
+
+- [ ] **Gift Card Dashboard**  
+       Easily access all your sent and received gift cards in a personalized dashboard, with filters to track redeemed and active cards.
+
+Stay tuned as I continue to enhance the Xenia experience! Your feedback and support helps me shape a more secure and user-friendly blockchain gifting solution.
+
 ## 🛠️ Contributing
 
 Feel free to fork this project, submit issues, and create pull requests. All contributions are welcome and appreciated!
