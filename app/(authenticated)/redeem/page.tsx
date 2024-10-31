@@ -173,7 +173,7 @@ export default function page() {
             <GiftCard {...giftCardInfo} hideCode />
             <div>
               {redeemed ? (
-                <div>
+                <div className="text-center">
                   <h3 className="text-lg font-bold">Gift Card Redeemed</h3>
                   <p className="text-sm text-neutral-500">
                     This gift card has been redeemed successfully, wait for the
